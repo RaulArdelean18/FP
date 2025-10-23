@@ -19,6 +19,43 @@ def modifica_pachet(lista_pachete, index, destinatie_noua, data_inceput_noua, da
     lista_pachete[index]["data_sfarsit"] = data_sfarsit_noua
     lista_pachete[index]["pret"] = pret_nou
 
+
+def pachet_destinatie_pe_pozitie(lista_pachete,index):
+    '''
+
+    :param lista_pachete: lista pachetelor
+    :param index: pachetul de pe pozitia index in care ne intereseaza destinatia
+    :return: desitnatia pachetului index
+    '''
+    return lista_pachete[index]["destinatie"]
+
+def pachet_pret_pe_pozitie(lista_pachete,index):
+    '''
+
+    :param lista_pachete: lista pachetelor
+    :param index: pachetul de pe pozitia index in care ne intereseaza pretul
+    :return: pretul pachetului index
+    '''
+    return lista_pachete[index]["pret"]
+
+def pachet_inceput_sejur_pe_pozitie(lista_pachete,index):
+    '''
+
+    :param lista_pachete: lista pachetelor
+    :param index: pachetul de pe pozitia index in care ne intereseaza inceputul sejurului
+    :return: inceputul sejurului pachetului index
+    '''
+    return lista_pachete[index]["data_inceput"]
+
+def pachet_final_sejur_pe_pozitie(lista_pachete,index):
+    '''
+
+    :param lista_pachete: lista pachetelor
+    :param index: pachetul de pe pozitia index in care ne intereseaza finalul sejurului
+    :return: finalul sejurului pachetului index
+    '''
+    return lista_pachete[index]["data_sfarsit"]
+
 def sterge_dupa_durata(lista_pachete, durata_minima_zile):
     """
     Returneaza o lista noua eliminand pachetele mai scurte de un numar de zile.
@@ -78,4 +115,20 @@ def cauta_dupa_data_sfarsit(lista_pachete, data_sfarsit_cautare):
     for pachet in lista_pachete:
         if pachet['data_sfarsit'].date() == data_sfarsit_cautare.date():
             rezultat.append(pachet)
+    return rezultat
+
+def filtrare_oferte_dupa_pret_si_destinatie(lista_pachete, destinatie,pret_maxim):
+    '''
+    Returneaza pachetele care au pret mai mic sau egal decat pret_maxim si nu sunt in destinatia {destinatie}
+    :param lista_pachete: lista care cuprinde toate pachetele
+    :param destinatie: destinatia in care nu ne dorim sa ajungem
+    :param pret_maxim: pretul maxim pe care noi il putem plati pentru un pachet
+    :return: o noua lista filtrata cu optiunile noastre
+    '''
+    rezultat = []
+
+    for pachet in lista_pachete:
+        if pachet['pret'] <= pret_maxim and pachet['destinatie'] != destinatie:
+                rezultat.append(pachet)
+
     return rezultat

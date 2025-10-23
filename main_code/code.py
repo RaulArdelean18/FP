@@ -17,8 +17,9 @@ TO DO:
     7. Cauta pachete intr-un interval de timp
     8. Cauta pachete dupa destinatie si pret
     9. Cauta pachete dupa data de sfarsit
+    --- Optiuni Filtrare ---
+    10. Filtrare dupa pret si destinatie
     0. Iesire din aplicatie
-
     ----------------------------------------(done)
 
     Adaugare: (done)
@@ -66,6 +67,8 @@ def run():
                 ui_cauta_dupa_destinatie_si_pret(pachete_turistice)
             case '9':
                 ui_cauta_dupa_data_sfarsit(pachete_turistice)
+            case '10':
+                ui_filtrare_oferte_dupa_pret_si_destinatie(pachete_turistice)
             case '0':
                 print("Programul s-a oprit.")
                 break

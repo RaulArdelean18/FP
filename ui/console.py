@@ -219,6 +219,24 @@ def ui_cauta_dupa_data_sfarsit(lista_pachete):
     rezultate = cauta_dupa_data_sfarsit(lista_pachete, data_sfarsit)
     ui_afiseaza_pachete(rezultate, titlu=f"--- Pachete gasite care se termina pe {format_data_manual(data_sfarsit)} ---")
 
+def ui_filtrare_oferte_dupa_pret_si_destinatie(lista_pachete):
+    '''
+    UI pentru filtrare oferte dupa pret si destinatie.
+    Dorim sa afisam o noua lista fara a modifica lista curenta astfel incat sa avem doar pachetele cu un pret mai mare decat cel introdus de utilizator, respectiv destinatiile sa nu coincida cu destinatioa introdusa de utilizator
+    :param lista_pachete: lista pachetelor actuale
+    :return: lista filtrata cu datele introduse de utilizator
+    '''
+
+    print("\n--- Filtrare dupa pret si destinatie ---")
+    destinatie = input("Introduceti destinatia in care nu doriti sa mergeti: ")
+    try:
+        pret_maxim = float(input("Introduceti bugetul maxim: "))
+    except ValueError:
+        print("Eroare: Pretul trebuie sa fie un numar.")
+
+    rezultate = filtrare_oferte_dupa_pret_si_destinatie(lista_pachete, destinatie,pret_maxim)
+    ui_afiseaza_pachete(rezultate,titlu=f"--- Pachetele care au un pret mai mic sau egal cu {pret_maxim} si cu o destinatie diferita fata de {destinatie} ---")
+
 def ui_meniu():
     print("\n===============================")
     print("   MENIU AGENTIE DE TURISM   ")
@@ -234,4 +252,6 @@ def ui_meniu():
     print("7. Cauta pachete intr-un interval de timp")
     print("8. Cauta pachete dupa destinatie si pret")
     print("9. Cauta pachete dupa data de sfarsit")
+    print("--- Optiuni Filtrare ---")
+    print("10. Filtrare dupa pret si destinatie")
     print("0. Iesire din aplicatie")
