@@ -56,9 +56,9 @@ def run():
 
         match optiune:
             case '1':
-                ui_adauga_pachet(pachete_turistice)
+                pachete_turistice = ui_adauga_pachet(pachete_turistice)
             case '2':
-                ui_modifica_pachet(pachete_turistice)
+                pachete_turistice = ui_modifica_pachet(pachete_turistice)
             case '3':
                 ui_afiseaza_pachete(pachete_turistice)
             case '4':

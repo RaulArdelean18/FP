@@ -13,13 +13,14 @@ def citeste_data_validata(mesaj_prompt):
             print("Format data invalid. Te rog reincearca.")
     return data_obj
 
+
 def ui_adauga_pachet(lista_pachete):
     """
-    Citeste datele de la utilizator și adaugă un pachet nou, cu validare completa.
+    Citeste datele, apeleaza serviciul pentru adaugare si
+    RETURNeaza noua lista de pachete.
     """
     print("\n--- Adaugare pachet nou ---")
     destinatie = input("Introduceti destinatia: ")
-
 
     while True:
         data_inceput = citeste_data_validata("Introduceti data de inceput (zz/ll/aaaa): ")
@@ -31,10 +32,14 @@ def ui_adauga_pachet(lista_pachete):
 
     try:
         pret = float(input("Introduceti pretul: "))
-        adauga_pachet(lista_pachete, destinatie, data_inceput, data_sfarsit, pret)
+        lista_noua = adauga_pachet(lista_pachete, destinatie, data_inceput, data_sfarsit, pret)
+
         print("Pachet adaugat cu succes!")
+        return lista_noua
+
     except ValueError:
         print("Pretul trebuie sa fie un numar.")
+        return lista_pachete
 
 def ui_afiseaza_pachete(lista_pachete, titlu="--- Lista de pachete ---"):
     """
@@ -43,7 +48,7 @@ def ui_afiseaza_pachete(lista_pachete, titlu="--- Lista de pachete ---"):
     print(f"\n{titlu}")
     if not lista_pachete:
         print("Lista este goala.")
-        return False # Returneaza False daca lista e goala
+        return False
 
     for i, pachet_curent in enumerate(lista_pachete):
         destinatia = pachet_curent['destinatie']
@@ -57,7 +62,7 @@ def ui_afiseaza_pachete(lista_pachete, titlu="--- Lista de pachete ---"):
             f"Preț: {pretul:.2f}"
         )
         print(text_de_afisat)
-    return True # Returneaza True daca a afisat ceva
+    return True
 
 def ui_sterge_dupa_durata(lista_pachete):
     """
@@ -109,11 +114,9 @@ def ui_modifica_pachet(lista_pachete):
     """
     print("\n--- Modificare pachet existent ---")
 
-    # Iese din functie daca lista e goala
     if not ui_afiseaza_pachete(lista_pachete, "Selectati numarul pachetului de modificat:"):
         return
 
-    # Cere utilizatorului sa aleaga un pachet
     try:
         numar_pachet = int(input("Introduceti numarul pachetului: "))
         index_pachet = numar_pachet - 1

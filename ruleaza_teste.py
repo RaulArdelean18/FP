@@ -15,7 +15,7 @@ def ruleaza_toate_testele():
         # Din test_services.py
         test_adauga_pachet,
         test_modifica_pachet,
-        verify,
+        test_gettere_si_creare_pachet,
         test_sterge_dupa_durata,
         test_sterge_dupa_destinatie,
         test_sterge_dupa_pret,
