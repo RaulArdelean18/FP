@@ -102,8 +102,6 @@ def ui_sterge_dupa_pret(lista_pachete):
         print("Pretul trebuie sa fie un numar.")
         return lista_pachete
 
-
-
 def ui_modifica_pachet(lista_pachete):
     """
     Interfata cu utilizatorul pentru a modifica un pachet.
@@ -178,7 +176,6 @@ def ui_modifica_pachet(lista_pachete):
     modifica_pachet(lista_pachete, index_pachet, destinatie_noua, data_inceput_noua, data_sfarsit_noua, pret_nou)
     print("Pachetul a fost modificat cu succes!")
 
-
 def ui_cauta_dupa_interval(lista_pachete):
     """
     UI pentru cautarea pachetelor intr-un interval de timp.
@@ -195,7 +192,6 @@ def ui_cauta_dupa_interval(lista_pachete):
     rezultate = cauta_dupa_interval(lista_pachete, data_inceput, data_sfarsit)
     ui_afiseaza_pachete(rezultate, titlu=f"--- Pachete gasite in intervalul {format_data_manual(data_inceput)} - {format_data_manual(data_sfarsit)} ---")
 
-
 def ui_cauta_dupa_destinatie_si_pret(lista_pachete):
     """
     UI pentru cautarea pachetelor dupa destinatie si pret maxim.
@@ -208,7 +204,6 @@ def ui_cauta_dupa_destinatie_si_pret(lista_pachete):
         ui_afiseaza_pachete(rezultate, titlu=f"--- Pachete gasite pentru '{destinatie}' cu pret sub {pret_maxim:.2f} ---")
     except ValueError:
         print("Eroare: Pretul trebuie sa fie un numar.")
-
 
 def ui_cauta_dupa_data_sfarsit(lista_pachete):
     """
@@ -237,6 +232,52 @@ def ui_filtrare_oferte_dupa_pret_si_destinatie(lista_pachete):
     rezultate = filtrare_oferte_dupa_pret_si_destinatie(lista_pachete, destinatie,pret_maxim)
     ui_afiseaza_pachete(rezultate,titlu=f"--- Pachetele care au un pret mai mic sau egal cu {pret_maxim} si cu o destinatie diferita fata de {destinatie} ---")
 
+
+def ui_filtrare_dupa_luna(lista_pachete):
+    """
+    UI pentru filtrarea (afisarea) pachetelor care NU au zile intr-o anumita luna.
+    NU modifica lista originala.
+    """
+    print("\n--- Filtrare pachete (excludere luna) ---")
+    try:
+        luna = int(input("Introduceti luna (1-12) pentru care doriti sa *excludeti* ofertele: "))
+        if not (1 <= luna <= 12):
+            print("Eroare: Luna trebuie sa fie un numar intre 1 si 12.")
+            return # Iese din functie
+
+        # Apeleaza functia de logica
+        lista_filtrata = filtrare_dupa_luna(lista_pachete, luna)
+
+        # Afiseaza direct rezultatul filtrat
+        ui_afiseaza_pachete(lista_filtrata, titlu=f"--- Pachete care NU se desfasoara in luna {luna} ---")
+
+    except ValueError:
+        print("Eroare: Trebuie sa introduceti un numar intreg (1-12).")
+
+
+def ui_raport_perioada_sortat(lista_pachete):
+    """
+    UI pentru afisarea pachetelor dintr-un interval, sortate dupa pret.
+    """
+    print("\n--- Raport: Pachete dintr-un interval (sortate dupa pret) ---")
+    while True:
+        data_inceput = citeste_data_validata("Introduceti data de inceput a intervalului (zz/ll/aaaa): ")
+        data_sfarsit = citeste_data_validata("Introduceti data de sfarsit a intervalului (zz/ll/aaaa): ")
+        if data_sfarsit > data_inceput:
+            break
+        else:
+            print("Data de sfarsit a intervalului trebuie sa fie dupa data de inceput. Reincercati.")
+
+    # Apeleaza functia de logica pentru rapoarte
+    rezultate_sortate = raport_perioada_sortat_pret(lista_pachete, data_inceput, data_sfarsit)
+
+    # Afiseaza rezultatele
+    titlu = (
+        f"--- Pachete in intervalul {format_data_manual(data_inceput)} - {format_data_manual(data_sfarsit)} "
+        f"(sortate crescator dupa pret) ---"
+    )
+    ui_afiseaza_pachete(rezultate_sortate, titlu=titlu)
+
 def ui_meniu():
     print("\n===============================")
     print("   MENIU AGENTIE DE TURISM   ")
@@ -254,4 +295,7 @@ def ui_meniu():
     print("9. Cauta pachete dupa data de sfarsit")
     print("--- Optiuni Filtrare ---")
     print("10. Filtrare dupa pret si destinatie")
+    print("11. Filtrare pachete dintr-o luna")
+    print("--- Optiuni Rapoarte ---")
+    print("12. Raport: Pachete pe perioada (sortate dupa pret)")
     print("0. Iesire din aplicatie")

@@ -19,7 +19,6 @@ def modifica_pachet(lista_pachete, index, destinatie_noua, data_inceput_noua, da
     lista_pachete[index]["data_sfarsit"] = data_sfarsit_noua
     lista_pachete[index]["pret"] = pret_nou
 
-
 def pachet_destinatie_pe_pozitie(lista_pachete,index):
     '''
 
@@ -132,3 +131,54 @@ def filtrare_oferte_dupa_pret_si_destinatie(lista_pachete, destinatie,pret_maxim
                 rezultat.append(pachet)
 
     return rezultat
+
+
+def filtrare_dupa_luna(lista_pachete, luna):
+    """
+    Returneaza o lista noua eliminand pachetele care au cel putin o zi in luna specificata.
+    """
+    pachete_pastrate = []
+
+    for pachet in lista_pachete:
+        p_start_luna = pachet['data_inceput'].month
+        p_end_luna = pachet['data_sfarsit'].month
+
+        elimina = False
+
+        # Cazul 1: Pachetul incepe sau se termina in luna data
+        if p_start_luna == luna or p_end_luna == luna:
+            elimina = True
+
+        # Cazul 2: Pachetul se desfasoara in acelasi an si luna e la mijloc
+        # (ex: pachet Feb-Apr, luna filtrata = Mar)
+        elif p_start_luna < p_end_luna:
+            if p_start_luna < luna < p_end_luna:
+                elimina = True
+
+        # Cazul 3: Pachetul trece peste ani (ex: pachet Oct -> Feb)
+        elif p_start_luna > p_end_luna:
+            # Daca luna e in primul an (ex: Oct, Nov, Dec) SAU in al doilea an (ex: Jan, Feb)
+            if luna >= p_start_luna or luna <= p_end_luna:
+                elimina = True
+
+        # Daca nu trebuie eliminat, il pastram
+        if not elimina:
+            pachete_pastrate.append(pachet)
+
+    return pachete_pastrate
+
+
+def raport_perioada_sortat_pret(lista_pachete, data_inceput_cautare, data_sfarsit_cautare):
+    """
+    Returneaza o lista de pachete dintr-un interval dat, sortata crescator dupa pret.
+    Refoloseste logica de la cauta_dupa_interval.
+    """
+
+    # 1. Gaseste pachetele din interval (logica deja existenta si testata)
+    pachete_gasite = cauta_dupa_interval(lista_pachete, data_inceput_cautare, data_sfarsit_cautare)
+
+    # 2. Sorteaza rezultatele gasite crescator dupa pret
+    # Folosim functia 'sorted' pentru a sorta lista dpa cheia 'pret'
+    pachete_sortate = sorted(pachete_gasite, key=lambda pachet: pachet['pret'])
+
+    return pachete_sortate

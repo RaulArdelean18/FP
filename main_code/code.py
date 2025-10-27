@@ -69,6 +69,10 @@ def run():
                 ui_cauta_dupa_data_sfarsit(pachete_turistice)
             case '10':
                 ui_filtrare_oferte_dupa_pret_si_destinatie(pachete_turistice)
+            case '11':
+                ui_filtrare_dupa_luna(pachete_turistice)
+            case '12':
+                ui_raport_perioada_sortat(pachete_turistice)
             case '0':
                 print("Programul s-a oprit.")
                 break
