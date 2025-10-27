@@ -1,4 +1,4 @@
-from teste.test_utils import *
+from teste.teste_utilitati import *
 from teste.test_services import *
 
 
@@ -8,7 +8,7 @@ def ruleaza_toate_testele():
     """
     # Lista tuturor functiilor de test pe care vrem sa le rulam
     teste_de_rulat = [
-        # Din test_utils.py
+        # Din teste_utilitati.py
         test_converteste_string_in_data,
         test_format_data_manual,
 

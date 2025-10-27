@@ -20,6 +20,7 @@ def ui_adauga_pachet(lista_pachete):
     print("\n--- Adaugare pachet nou ---")
     destinatie = input("Introduceti destinatia: ")
 
+
     while True:
         data_inceput = citeste_data_validata("Introduceti data de inceput (zz/ll/aaaa): ")
         data_sfarsit = citeste_data_validata("Introduceti data de sfarsit (zz/ll/aaaa): ")

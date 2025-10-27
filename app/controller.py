@@ -19,6 +19,9 @@ TO DO:
     9. Cauta pachete dupa data de sfarsit
     --- Optiuni Filtrare ---
     10. Filtrare dupa pret si destinatie
+    11. Filtrare pachete dintr-o luna
+    --- Optiuni Rapoarte ---
+    12. Pachete pe perioada (sortate dupa pret)
     0. Iesire din aplicatie
     ----------------------------------------(done)
 
@@ -34,6 +37,12 @@ TO DO:
         -> Afisarea pachetelor in functie de destinatie si buget maxim alocat (done)
         -> Afisarea pachetelor in functie de data de sfarsit (done)
 
+    Rapoarte:
+        -> Pachete pe perioada (sortate dupa pret)
+
+    Filtrare: (done)
+        -> Filtrare dupa pret si destinatie (done)
+        -> Filtrare pachete dintr-o luna (done)
 '''
 
 from ui.console import *
