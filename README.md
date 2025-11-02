@@ -13,8 +13,7 @@ Scopul principal al proiectului este exersarea conceptelor fundamentale de progr
 - Operații simple cu liste și numere  
 - Exersarea funcțiilor și a apelurilor recursive
 
-### 🧩 Lab 2
-- Aplicație pentru **gestionarea cheltuielilor unei familii**  
+### 🧩 Lab 2 
 - Operații: adăugare, modificare, filtrare, afișare  
 - Introducerea validărilor și a testării cu `assert`
 
