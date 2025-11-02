@@ -24,7 +24,9 @@ def ruleaza_toate_testele():
         test_cauta_dupa_data_sfarsit,
         test_filtrare_oferte_dupa_pret_si_destinatie,
         test_filtrare_dupa_luna,
-        test_raport_perioada_sortat_pret
+        test_raport_perioada_sortat_pret,
+        test_raport_numar_oferte_destinatie,
+        test_raport_medie_pret_destinatie
     ]
 
     numar_teste_rulate = 0
@@ -48,7 +50,7 @@ def ruleaza_toate_testele():
             print(f"[FAILED] Testul '{test_nume}' a esuat!")
             print(f"   -> Eroare: {e}")  # Afisam eroarea data de assert
         except Exception as e:
-            # Afisam si alte erori neasteptate (ex: KeyError, etc.)
+            # Afisam si alte erori neasteptate
             numar_teste_esuate += 1
             print(f"[ERROR] Testul '{test_nume}' a produs o eroare neasteptata!")
             print(f"   -> Eroare: {e}")
@@ -59,9 +61,9 @@ def ruleaza_toate_testele():
     print(f"Teste esuate: {numar_teste_esuate}")
 
     if numar_teste_esuate == 0:
-        print("\nFelicitari! Toate testele au trecut! 🎉")
+        print("\nFelicitari! Toate testele au trecut!")
     else:
-        print(f"\nAtentie! {numar_teste_esuate} teste au esuat. 😟")
+        print(f"\nAtentie! {numar_teste_esuate} teste au esuat.")
 
 
 if __name__ == "__main__":

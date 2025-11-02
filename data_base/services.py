@@ -48,7 +48,18 @@ def modifica_pachet(lista_pachete, index, destinatie_noua, data_inceput_noua, da
     (Folosesc 'creeaza_pachet' pentru a inlocui pachetul vechi).
     """
     pachet_modificat = creeaza_pachet(destinatie_noua, data_inceput_noua, data_sfarsit_noua, pret_nou)
-    lista_pachete[index] = pachet_modificat
+    # Am creat o lista noua
+    lista_noua = []
+    for i in range(len(lista_pachete)):
+        if i == index:
+            # Adauga pachetul modificat la pozitia corecta
+            lista_noua.append(pachet_modificat)
+        else:
+            # Adauga pachetul vechi, nemodificat
+            lista_noua.append(lista_pachete[i])
+
+    # Returneaza lista NOUA, nu cea veche
+    return lista_noua
 
 
 def sterge_dupa_durata(lista_pachete, durata_minima_zile):
@@ -164,7 +175,35 @@ def raport_perioada_sortat_pret(lista_pachete, data_inceput_cautare, data_sfarsi
     """
     pachete_gasite = cauta_dupa_interval(lista_pachete, data_inceput_cautare, data_sfarsit_cautare)
 
-    # MODIFICAT: Folosim getter in lambda
+    # Folosim getter in lambda
     pachete_sortate = sorted(pachete_gasite, key=lambda pachet: get_pret(pachet))
 
     return pachete_sortate
+
+
+def raport_numar_oferte_destinatie(lista_pachete, destinatie):
+    """
+    Returneaza numarul de oferte pentru o destinatie data.
+    """
+    count = 0
+    for pachet in lista_pachete:
+        if get_destinatie(pachet) == destinatie:
+            count += 1
+    return count
+
+
+def raport_medie_pret_destinatie(lista_pachete, destinatie):
+    """
+    Returneaza media pretului pentru o destinatie data.
+    Returneaza 0 daca nu exista pachete.
+    """
+    total_pret = 0
+    count = 0
+    for pachet in lista_pachete:
+        if get_destinatie(pachet) == destinatie:
+            total_pret += get_pret(pachet)
+            count += 1
+
+    if count == 0:
+        return 0
+    return total_pret / count

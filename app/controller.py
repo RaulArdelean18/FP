@@ -1,58 +1,23 @@
-'''
-P6 Agentie de Turism
-Ardelean Raul
-
-TO DO:
-    ===============================
-       MENIU AGENTIE DE TURISM
-    ===============================
-    1. Adauga pachet nou
-    2. Modifica un pachet existent
-    3. Afiseaza toate pachetele
-    --- Optiuni Stergere ---
-    4. Sterge pachetele mai scurte decât o durata
-    5. Sterge pachetele cu o destinatie specifica
-    6. Sterge pachetele care au pretul mai mare decat o suma data
-    --- Optiuni Cautare ---
-    7. Cauta pachete intr-un interval de timp
-    8. Cauta pachete dupa destinatie si pret
-    9. Cauta pachete dupa data de sfarsit
-    --- Optiuni Filtrare ---
-    10. Filtrare dupa pret si destinatie
-    11. Filtrare pachete dintr-o luna
-    --- Optiuni Rapoarte ---
-    12. Pachete pe perioada (sortate dupa pret)
-    0. Iesire din aplicatie
-    ----------------------------------------(done)
-
-    Adaugare: (done)
-        -> Adaugare pachet de calatorie (done)
-        -> Modifica pachet de calatorie (done)
-    Stergere: (done)
-        -> Stergerea pachetelor in functie de destinatie (done)
-        -> Stergerea pachetelor in functie de durata (done)
-        -> Stergerea pachetelor in functie de pret (done)
-    Cautare: (done)
-        -> Afisarea pachetelor in functie de interval de timp (done)
-        -> Afisarea pachetelor in functie de destinatie si buget maxim alocat (done)
-        -> Afisarea pachetelor in functie de data de sfarsit (done)
-
-    Rapoarte:
-        -> Pachete pe perioada (sortate dupa pret)
-
-    Filtrare: (done)
-        -> Filtrare dupa pret si destinatie (done)
-        -> Filtrare pachete dintr-o luna (done)
-'''
-
 from ui.console import *
 
 def run():
     pachete_turistice = []
 
+    # Cream o lista care va tine minte starile anterioare (retinem o stiva cu pachetele anteriore)
+    istoric_stari = []
+
     while True:
         ui_meniu()
         optiune = input(">>> Alegeti o optiune: ")
+
+        # Definim ce operatii modifica lista
+        operatii_cu_modificari = ['1', '2', '4', '5', '6']
+
+        # Daca utilizatorul alege o operatie care modifica lista,
+        # salvam starea CURENTA in istoric INAINTE de a o executa.
+        if optiune in operatii_cu_modificari:
+            istoric_stari.append(pachete_turistice)
+
 
         match optiune:
             case '1':
@@ -82,6 +47,20 @@ def run():
                 ui_filtrare_dupa_luna(pachete_turistice)
             case '12':
                 ui_raport_perioada_sortat(pachete_turistice)
+            case '13':
+                ui_raport_numar_oferte(pachete_turistice)
+            case '14':
+                ui_raport_medie_pret(pachete_turistice)
+
+            case '15':
+                if len(istoric_stari) > 0:
+                    # Scoatem ultima stare salvata in stack si o setam ca fiind starea curenta
+                    pachete_turistice = istoric_stari.pop()
+                    print("\nOperatia anterioara a fost anulata cu succes.")
+                    ui_afiseaza_pachete(pachete_turistice, titlu="--- Lista a revenit la starea anterioara ---")
+                else:
+                    print("\nNu exista operatii pentru anulat.")
+
             case '0':
                 print("Programul s-a oprit.")
                 break

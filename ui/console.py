@@ -44,6 +44,7 @@ def ui_adauga_pachet(lista_pachete):
 def ui_afiseaza_pachete(lista_pachete, titlu="--- Lista de pachete ---"):
     """
     Afiseaza toate pachetele dintr-o lista data.
+    Folosesc gettere in loc de acces direct la chei.
     """
     print(f"\n{titlu}")
     if not lista_pachete:
@@ -51,10 +52,10 @@ def ui_afiseaza_pachete(lista_pachete, titlu="--- Lista de pachete ---"):
         return False
 
     for i, pachet_curent in enumerate(lista_pachete):
-        destinatia = pachet_curent['destinatie']
-        perioada_start = format_data_manual(pachet_curent['data_inceput'])
-        perioada_stop = format_data_manual(pachet_curent['data_sfarsit'])
-        pretul = pachet_curent['pret']
+        destinatia = get_destinatie(pachet_curent)
+        perioada_start = format_data_manual(get_data_inceput(pachet_curent))
+        perioada_stop = format_data_manual(get_data_sfarsit(pachet_curent))
+        pretul = get_pret(pachet_curent)
 
         text_de_afisat = (
             f"{i + 1}. Destinație: {destinatia}, "
@@ -108,14 +109,17 @@ def ui_sterge_dupa_pret(lista_pachete):
         print("Pretul trebuie sa fie un numar.")
         return lista_pachete
 
+
 def ui_modifica_pachet(lista_pachete):
     """
     Interfata cu utilizatorul pentru a modifica un pachet.
+    Returneaza noua lista de pachete dupa modificare.
     """
     print("\n--- Modificare pachet existent ---")
 
+    # Daca lista e goala, returnam lista goala (nemodificata)
     if not ui_afiseaza_pachete(lista_pachete, "Selectati numarul pachetului de modificat:"):
-        return
+        return lista_pachete
 
     try:
         numar_pachet = int(input("Introduceti numarul pachetului: "))
@@ -124,34 +128,40 @@ def ui_modifica_pachet(lista_pachete):
         # Verifica daca indexul este valid
         if not (0 <= index_pachet < len(lista_pachete)):
             print("Eroare: Numarul pachetului nu este valid.")
-            return
+            return lista_pachete  # Returneaza lista nemodificata
 
     except ValueError:
         print("Eroare: Trebuie sa introduceti un numar.")
-        return
+        return lista_pachete  # Returneaza lista nemodificata
+
+    # MODIFICAT: Extragem pachetul vechi o singura data
+    pachet_vechi = lista_pachete[index_pachet]
 
     # Citeste noile date
     print("\nIntroduceti noile date pentru pachet (lasati gol pentru a pastra valoarea veche).")
 
     # Modifica destinatia
-    destinatie_noua = input(f"Destinatie noua (veche: {lista_pachete[index_pachet]['destinatie']}): ")
+    # Folosim getter
+    destinatie_noua = input(f"Destinatie noua (veche: {get_destinatie(pachet_vechi)}): ")
     if destinatie_noua == "":
-        destinatie_noua = lista_pachete[index_pachet]['destinatie']
+        destinatie_noua = get_destinatie(pachet_vechi)  # Folosim getter
 
     # Modifica datele de calatorie
     while True:
-        data_inceput_str = input(f"Data inceput noua (veche: {format_data_manual(lista_pachete[index_pachet]['data_inceput'])}): ")
+        # Folosim gettere
+        data_inceput_str = input(f"Data inceput noua (veche: {format_data_manual(get_data_inceput(pachet_vechi))}): ")
         if data_inceput_str == "":
-            data_inceput_noua = lista_pachete[index_pachet]['data_inceput']
+            data_inceput_noua = get_data_inceput(pachet_vechi)  # Folosim getter
         else:
             data_inceput_noua = converteste_string_in_data(data_inceput_str)
             if data_inceput_noua is None:
                 print("Format data invalid. Modul corect este zz/ll/aaaa. Incercati din nou.")
                 continue
 
-        data_sfarsit_str = input(f"Data sfarsit noua (veche: {format_data_manual(lista_pachete[index_pachet]['data_sfarsit'])}): ")
+        # Folosim gettere
+        data_sfarsit_str = input(f"Data sfarsit noua (veche: {format_data_manual(get_data_sfarsit(pachet_vechi))}): ")
         if data_sfarsit_str == "":
-            data_sfarsit_noua = lista_pachete[index_pachet]['data_sfarsit']
+            data_sfarsit_noua = get_data_sfarsit(pachet_vechi)  # Folosim getter
         else:
             data_sfarsit_noua = converteste_string_in_data(data_sfarsit_str)
             if data_sfarsit_noua is None:
@@ -166,9 +176,10 @@ def ui_modifica_pachet(lista_pachete):
 
     # Modifica pretul
     while True:
-        pret_nou_str = input(f"Pret nou (vechi: {lista_pachete[index_pachet]['pret']:.2f}): ")
+        # Folosim getter
+        pret_nou_str = input(f"Pret nou (vechi: {get_pret(pachet_vechi):.2f}): ")
         if pret_nou_str == "":
-            pret_nou = lista_pachete[index_pachet]['pret']
+            pret_nou = get_pret(pachet_vechi)  # Folosim getter
             break
         try:
             pret_nou = float(pret_nou_str)
@@ -177,8 +188,14 @@ def ui_modifica_pachet(lista_pachete):
             print("Pretul trebuie sa fie un numar (ex: 150.99). Incercati din nou.")
 
     # Apeleaza functia de modificare
-    modifica_pachet(lista_pachete, index_pachet, destinatie_noua, data_inceput_noua, data_sfarsit_noua, pret_nou)
+    # Prindem noua lista returnata de serviciu
+    lista_noua = modifica_pachet(lista_pachete, index_pachet, destinatie_noua, data_inceput_noua, data_sfarsit_noua,
+                                 pret_nou)
+
     print("Pachetul a fost modificat cu succes!")
+
+    # Returnam noua lista catre controller
+    return lista_noua
 
 def ui_cauta_dupa_interval(lista_pachete):
     """
@@ -282,6 +299,37 @@ def ui_raport_perioada_sortat(lista_pachete):
     )
     ui_afiseaza_pachete(rezultate_sortate, titlu=titlu)
 
+
+def ui_raport_numar_oferte(lista_pachete):
+    """
+    UI pentru afisarea numarului de oferte pe destinatie.
+    """
+    print("\n--- Raport: Numar oferte pe destinatie ---")
+    destinatie = input("Introduceti destinatia: ")
+
+    numar_oferte = raport_numar_oferte_destinatie(lista_pachete, destinatie)
+
+    if numar_oferte == 0:
+        print(f"Nu exista oferte pentru destinatia '{destinatie}'.")
+    else:
+        print(f"Numarul de oferte pentru destinatia '{destinatie}' este: {numar_oferte}")
+
+
+def ui_raport_medie_pret(lista_pachete):
+    """
+    UI pentru afisarea pretului mediu pe destinatie.
+    """
+    print("\n--- Raport: Medie pret pe destinatie ---")
+    destinatie = input("Introduceti destinatia: ")
+
+    medie_pret = raport_medie_pret_destinatie(lista_pachete, destinatie)
+
+    if medie_pret == 0:
+        print(f"Nu exista oferte pentru destinatia '{destinatie}' pentru a calcula media.")
+    else:
+        print(f"Pretul mediu pentru destinatia '{destinatie}' este: {medie_pret:.2f}")
+
+
 def ui_meniu():
     print("\n===============================")
     print("   MENIU AGENTIE DE TURISM   ")
@@ -302,4 +350,8 @@ def ui_meniu():
     print("11. Filtrare pachete dintr-o luna")
     print("--- Optiuni Rapoarte ---")
     print("12. Raport: Pachete pe perioada (sortate dupa pret)")
+    print("13. Raport: Numar oferte pe destinatie")
+    print("14. Raport: Medie pret pe destinatie")
+    print("--- Optiune de Undo ---")
+    print("15. Undo (anuleaza ultima modificare)")
     print("0. Iesire din aplicatie")
