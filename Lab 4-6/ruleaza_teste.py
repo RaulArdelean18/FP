@@ -1,6 +1,13 @@
+import sys
+import os
+
+# Obtine calea absoluta a folderului in care se afla ruleaza_teste.py
+director_curent = os.path.dirname(os.path.abspath(__file__))
+# Adauga aceasta cale in sys.path pentru ca Python sa gaseasca modulele (teste, data_base, etc.)
+sys.path.append(director_curent)
+
 from teste.teste_utilitati import *
 from teste.test_services import *
-
 
 def ruleaza_toate_testele():
     """
