@@ -134,21 +134,19 @@ def ui_modifica_pachet(lista_pachete):
         print("Eroare: Trebuie sa introduceti un numar.")
         return lista_pachete  # Returneaza lista nemodificata
 
-    # MODIFICAT: Extragem pachetul vechi o singura data
+    # Extragem pachetul vechi
     pachet_vechi = lista_pachete[index_pachet]
 
     # Citeste noile date
     print("\nIntroduceti noile date pentru pachet (lasati gol pentru a pastra valoarea veche).")
 
     # Modifica destinatia
-    # Folosim getter
     destinatie_noua = input(f"Destinatie noua (veche: {get_destinatie(pachet_vechi)}): ")
     if destinatie_noua == "":
         destinatie_noua = get_destinatie(pachet_vechi)  # Folosim getter
 
     # Modifica datele de calatorie
     while True:
-        # Folosim gettere
         data_inceput_str = input(f"Data inceput noua (veche: {format_data_manual(get_data_inceput(pachet_vechi))}): ")
         if data_inceput_str == "":
             data_inceput_noua = get_data_inceput(pachet_vechi)  # Folosim getter
@@ -158,7 +156,6 @@ def ui_modifica_pachet(lista_pachete):
                 print("Format data invalid. Modul corect este zz/ll/aaaa. Incercati din nou.")
                 continue
 
-        # Folosim gettere
         data_sfarsit_str = input(f"Data sfarsit noua (veche: {format_data_manual(get_data_sfarsit(pachet_vechi))}): ")
         if data_sfarsit_str == "":
             data_sfarsit_noua = get_data_sfarsit(pachet_vechi)  # Folosim getter
@@ -176,10 +173,9 @@ def ui_modifica_pachet(lista_pachete):
 
     # Modifica pretul
     while True:
-        # Folosim getter
         pret_nou_str = input(f"Pret nou (vechi: {get_pret(pachet_vechi):.2f}): ")
         if pret_nou_str == "":
-            pret_nou = get_pret(pachet_vechi)  # Folosim getter
+            pret_nou = get_pret(pachet_vechi)
             break
         try:
             pret_nou = float(pret_nou_str)

@@ -1,10 +1,7 @@
 import datetime
-from Lab46.utilitati.date_converter import *
 from Lab46.data_base.services import *
 from Lab46.utilitati.date_converter import *
 from Lab46.app.pachete_manager import *
-
-
 
 def test_converteste_string_in_data():
     # Test caz valid

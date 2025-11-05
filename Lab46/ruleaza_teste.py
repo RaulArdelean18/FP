@@ -1,5 +1,6 @@
 from Lab46.teste.teste_utilitati import *
 from Lab46.teste.test_services import *
+from Lab46.teste.teste_parsare_controller import *
 
 def ruleaza_toate_testele():
     """
@@ -26,7 +27,13 @@ def ruleaza_toate_testele():
         test_raport_perioada_sortat_pret,
         test_raport_numar_oferte_destinatie,
         test_raport_medie_pret_destinatie,
-        test_functionalitate_undo
+        test_functionalitate_undo,
+
+        # Din teste_parsare_controller.py
+        test_valideaza_pachet_corect,
+        test_valideaza_pachet_erori,
+        test_valideaza_interval_corect,
+        test_valideaza_interval_erori
     ]
 
     numar_teste_rulate = 0

@@ -1,13 +1,35 @@
+# Importam functiile din UI (inclusiv cele noi pentru mesaje)
 from Lab46.ui.console import *
+
+# Importam noul nostru manager de stare SI functia de undo
 from Lab46.app.pachete_manager import *
 
-def run():
-    pachete_turistice = []
+
+def _gestioneaza_undo(manager_stare):
+    """
+    Functie ajutatoare care orchestreaza operatia de undo.
+    Apeleaza logica de undo din 'stare.py' si apoi apeleaza
+    functiile de UI corespunzatoare pentru a anunta utilizatorul.
+    """
+    # 1. Apeleaza functia de LOGICA
+    if executa_undo(manager_stare):
+        # 2. Apeleaza functiile de UI pentru SUCCES
+        ui_mesaj_undo_succes()
+        ui_afiseaza_pachete(get_lista_curenta(manager_stare), titlu="--- Lista a revenit la starea anterioara ---")
+    else:
+        # 3. Apeleaza functia de UI pentru ESEC
+        ui_mesaj_undo_esec()
+
+
+def run_interactive():
+    # Cream managerul care tine toata starea
     manager_stare = creeaza_manager_stare()
 
     while True:
         ui_meniu()
-        optiune = input(">>> Alegeti o optiune: ")
+
+        # Citirea optiunii se face acum in UI
+        optiune = ui_citeste_optiune(">>> Alegeti o optiune: ")
 
         # Definim ce operatii modifica lista
         operatii_cu_modificari = ['1', '2', '4', '5', '6']
@@ -17,6 +39,7 @@ def run():
         if optiune in operatii_cu_modificari:
             # Preluam starea curenta din manager
             lista_de_salvat = get_lista_curenta(manager_stare)
+
             # Adaugam o copie a ei in lista de undo
             adauga_la_undo(manager_stare, lista_de_salvat.copy())
 
@@ -78,17 +101,7 @@ def run():
 
             # --- Undo ---
             case '15':
-                # Verificam folosind functia managerului
-                if are_stari_undo(manager_stare):
-                    # Scoatem ultima stare salvata si o setam ca fiind starea curenta
-                    lista_anterioara = pop_din_undo(manager_stare)
-                    set_lista_curenta(manager_stare, lista_anterioara)
-
-                    ui_mesaj_undo_succes()
-                    ui_afiseaza_pachete(get_lista_curenta(manager_stare),
-                                        titlu="--- Lista a revenit la starea anterioara ---")
-                else:
-                    ui_mesaj_undo_esec()
+                _gestioneaza_undo(manager_stare)
 
             case '0':
                 ui_mesaj_oprire()
