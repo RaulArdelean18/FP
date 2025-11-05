@@ -1,5 +1,5 @@
-from data_base.services import *
-from utilitati.date_converter import *
+from Lab46.data_base.services import *
+from Lab46.utilitati.date_converter import *
 
 def citeste_data_validata(mesaj_prompt):
     """
@@ -329,6 +329,35 @@ def ui_raport_medie_pret(lista_pachete):
     else:
         print(f"Pretul mediu pentru destinatia '{destinatie}' este: {medie_pret:.2f}")
 
+def ui_citeste_optiune(mesaj_prompt):
+    """
+    Citeste optiunea utilizatorului.
+    """
+    return input(mesaj_prompt)
+
+def ui_mesaj_undo_succes():
+    """
+    Afiseaza mesajul de succes pentru operatia de Undo.
+    """
+    print("\nOperatia anterioara a fost anulata cu succes.")
+
+def ui_mesaj_undo_esec():
+    """
+    Afiseaza mesajul de eroare cand nu se poate face Undo.
+    """
+    print("\nNu exista operatii pentru anulat.")
+
+def ui_mesaj_oprire():
+    """
+    Afiseaza mesajul de iesire din program.
+    """
+    print("Programul s-a oprit.")
+
+def ui_mesaj_optiune_invalida():
+    """
+    Afiseaza mesajul pentru optiune invalida.
+    """
+    print("Optiune invalida. Va rugam alegeti din lista.")
 
 def ui_meniu():
     print("\n===============================")
