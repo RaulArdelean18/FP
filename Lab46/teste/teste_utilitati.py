@@ -1,5 +1,5 @@
 import datetime
-from utilitati.date_converter import converteste_string_in_data, format_data_manual
+from Lab46.utilitati.date_converter import converteste_string_in_data, format_data_manual
 
 
 def test_converteste_string_in_data():

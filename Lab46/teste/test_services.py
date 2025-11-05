@@ -1,5 +1,5 @@
-from data_base.services import *
-from utilitati.date_converter import converteste_string_in_data
+from Lab46.data_base.services import *
+from Lab46.utilitati.date_converter import converteste_string_in_data
 
 def setup_date_pachete():
     """Creeaza un set de pachete si date pentru teste."""

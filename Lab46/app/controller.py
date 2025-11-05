@@ -1,4 +1,4 @@
-from ui.console import *
+from Lab46.ui.console import *
 
 def run():
     pachete_turistice = []
