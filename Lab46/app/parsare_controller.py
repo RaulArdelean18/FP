@@ -161,8 +161,8 @@ def run_parsing():
                     set_lista_curenta(manager, lista_noua)
                     print(f"[*] OK: Pachete sterse (durata < {durata} zile)")
                 elif comanda == 'sterge_pret':
-                    if len(params) != 1: raise ValueError(
-                        "Comanda 'sterge_pret' necesita 1 parametru (pretul maxim de pastrat).")
+                    if len(params) != 1:
+                        raise ValueError("Comanda 'sterge_pret' necesita 1 parametru (pretul maxim de pastrat).")
                     pret = float(params[0])
                     lista_noua = sterge_dupa_pret(get_lista_curenta(manager), pret)
                     set_lista_curenta(manager, lista_noua)
@@ -232,9 +232,9 @@ def run_parsing():
                 else:
                     raise ValueError(f"Comanda necunoscuta: '{comanda}'")
 
+
             except (ValueError, IndexError, TypeError) as e:
                 print(f"\n[EROARE] La comanda: '{comanda_bruta}'")
                 print(f"  -> {e}")
-                print("Comanda nu a putut fi executata. Restul comenzilor de pe linie au fost anulate.")
+                print("Comanda nu a putut fi executata. Se continua cu urmatoarea comanda...")
                 _afiseaza_legenda_parsing()
-                break  # Opreste procesarea restului comenzilor de pe linie

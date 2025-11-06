@@ -5,7 +5,7 @@ from Lab46.app.pachete_manager import *
 def _gestioneaza_undo(manager_stare):
     """
     Functie ajutatoare care orchestreaza operatia de undo.
-    Apeleaza logica de undo din 'stare.py' si apoi apeleaza
+    Apeleaza logica de undo din 'pachete_manager.py' si apoi apeleaza
     functiile de UI corespunzatoare pentru a anunta utilizatorul.
     """
     # 1. Apeleaza functia de LOGICA
