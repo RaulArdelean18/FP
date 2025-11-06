@@ -1,7 +1,4 @@
-# Importam functiile din UI (inclusiv cele noi pentru mesaje)
 from Lab46.ui.console import *
-
-# Importam noul nostru manager de stare SI functia de undo
 from Lab46.app.pachete_manager import *
 
 
@@ -21,7 +18,7 @@ def _gestioneaza_undo(manager_stare):
         ui_mesaj_undo_esec()
 
 
-def run_interactive():
+def run_UI():
     # Cream managerul care tine toata starea
     manager_stare = creeaza_manager_stare()
 

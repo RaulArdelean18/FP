@@ -96,6 +96,9 @@ def test_modifica_pachet():
 
 
 def test_sterge_dupa_durata():
+    '''
+    testam daca stergem corect dupa durata
+    '''
     lista_test, _, _, _, _ = setup_date_pachete()
     # p1: 4 zile, p2: 9 zile, p3: 10 zile
 
@@ -115,6 +118,9 @@ def test_sterge_dupa_durata():
 
 
 def test_sterge_dupa_destinatie():
+    '''
+    testam daca stergem corect dupa destinatie
+    '''
     lista_test, _, _, _, _ = setup_date_pachete()
     # p1: Grecia, p2: Italia, p3: Grecia
 
@@ -132,6 +138,9 @@ def test_sterge_dupa_destinatie():
 
 
 def test_sterge_dupa_pret():
+    '''
+    testam daca stergem corect dupa pret
+    '''
     lista_test, _, _, _, _ = setup_date_pachete()
     # p1: 100, p2: 200, p3: 150
 

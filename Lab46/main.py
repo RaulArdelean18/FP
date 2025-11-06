@@ -1,4 +1,4 @@
-from Lab46.app.controller import run_interactive
+from Lab46.app.controller import run_UI
 from Lab46.app.parsare_controller import run_parsing
 
 if __name__ == "__main__":
@@ -9,7 +9,7 @@ if __name__ == "__main__":
     mod = input(">>> Alegeti modul (1 sau 2): ")
 
     if mod == '1':
-        run_interactive()
+        run_UI()
     elif mod == '2':
         print("\nIntrare in Modul Comanda...")
         run_parsing()
