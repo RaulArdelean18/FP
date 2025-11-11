@@ -39,8 +39,8 @@ def test_format_data_manual():
 def test_functionalitate_undo():
     """
     Testeaza intregul flux de undo:
-    1. Simuleaza adaugarea starilor in istoric (cum face controller.py)
-    2. Simuleaza apelarea functiilor de logica (cum face controller.py)
+    1. Simuleaza adaugarea starilor in istoric (cum face controllers.py)
+    2. Simuleaza apelarea functiilor de logica (cum face controllers.py)
     3. Apeleaza executa_undo() (din stare.py)
     4. Verifica daca starea a revenit corect.
     """
