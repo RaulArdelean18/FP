@@ -3,8 +3,8 @@ class Student:
     Clasa de domeniu care definește un Student.
     """
 
-    def __init__(self, studentID, nume, grup):
-        self.__studentID = studentID
+    def __init__(self, student_id, nume, grup):
+        self.__studentID = student_id
         self.__nume = nume
         self.__grup = grup
 
@@ -55,9 +55,9 @@ class ProblemaLaborator:
     Clasa de domeniu care definește o Problemă de Laborator.
     """
 
-    def __init__(self, nrLab_nrProb, descriere, deadline):
+    def __init__(self, nr_lab_nr_prob, descriere, deadline):
         # nrLab_nrProb este un string de forma "lab_prob", ex: "7_2"
-        self.__nrLab_nrProb = nrLab_nrProb
+        self.__nrLab_nrProb = nr_lab_nr_prob
         self.__descriere = descriere
         self.__deadline = deadline
 
